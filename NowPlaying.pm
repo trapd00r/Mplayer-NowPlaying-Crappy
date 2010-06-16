@@ -86,24 +86,24 @@ You have to set the logfile to use. $np_log is globally exported, so you can do:
 
 Valid arguments for the np() function is:
 
-  ID_CLIP_INFO_VALUE0
-  ID_CLIP_INFO_VALUE1
-  ID_CLIP_INFO_VALUE2
-  ID_CLIP_INFO_VALUE3
-  ID_CLIP_INFO_VALUE4
-  ID_CLIP_INFO_VALUE5
-  ID_CLIP_INFO_VALUE6
-  ID_AUDIO_BITRATE
-  ID_AUDIO_CODEC     
-  ID_AUDIO_FORMAT    
-  ID_AUDIO_ID        
-  ID_AUDIO_NCH       
-  ID_AUDIO_RATE      
-  ID_DEMUXER         
-  ID_LENGTH          
-  ID_SEEKABLE        
-  ID_START_TIME       
-  ID_FILENAME         
+  title
+  artist
+  album
+  year
+  comment
+  track
+  genre
+  bitrate
+  codec
+  format
+  id
+  channels
+  chapters
+  demuxer
+  length
+  seekable
+  start
+  file
 
 =head1 AUTHOR
 
