@@ -1,0 +1,69 @@
+NAME
+    Mplayer::NowPlaying - Query metadata information from a running Mplayer
+    process
+
+SYNOPSIS
+      use strict;
+      use Mplayer::NowPlaying qw($np_log np);
+
+      $np_log = './mplay.log';
+
+      my $artist = np('artist');
+      my $album  = np('album');
+      my $title  = np('title');
+
+      printf("%s - %s (%s)\n", $artist, $title, $album);
+
+DESCRIPTION
+    Mplayer does not provide an API, the next best thing is to use the
+    -slave option together with the ability to control it using a named
+    pipe.
+
+    Mplayer::NowPlaying exports one function, np(), that takes a single
+    argument, the metadata tag to return:
+
+      my $bitrate = np('bitrate'); # 128000
+
+    You have to set the logfile to use. $np_log is globally exported, so you
+    can do:
+
+      $np_log = "$ENV{HOME}/.mplayer/mplayer.log";
+
+    Valid arguments for the np() function is:
+
+      ID_CLIP_INFO_VALUE0
+      ID_CLIP_INFO_VALUE1
+      ID_CLIP_INFO_VALUE2
+      ID_CLIP_INFO_VALUE3
+      ID_CLIP_INFO_VALUE4
+      ID_CLIP_INFO_VALUE5
+      ID_CLIP_INFO_VALUE6
+      ID_AUDIO_BITRATE
+      ID_AUDIO_CODEC     
+      ID_AUDIO_FORMAT    
+      ID_AUDIO_ID        
+      ID_AUDIO_NCH       
+      ID_AUDIO_RATE      
+      ID_DEMUXER         
+      ID_LENGTH          
+      ID_SEEKABLE        
+      ID_START_TIME       
+      ID_FILENAME
+
+AUTHOR
+    Written by Magnus Woldrich.
+
+REPORTING BUGS
+    Report bugs to trapd00r@trapd00r.se
+
+    Mplayer::NowPlaying home page:
+    <http://github.com/trapd00r/Mplayer-NowPlaying/>
+
+COPYRIGHT
+    Copyright 2010 Magnus Woldrich. License GPLv2: GNU GPL version 2 or
+    later This is free software: you are free to change and redistribute it.
+    There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+    Radio Playing Daemon <http://github.com/trapd00r/RPD/>
+
