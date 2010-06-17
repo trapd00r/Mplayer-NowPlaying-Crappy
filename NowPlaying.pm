@@ -43,11 +43,12 @@ sub np {
   my %shname_vars = reverse(%mapped_vars);
 
   foreach my $var(@content) {
-    if($var =~ m/(\w+)=([\w-]+)/) {
+    if($var =~ m/(\w+)=([\w-.,;:\/\(\)\{\}\s]+)/) {
       $information{$1} = $2; # ID_CLIP_INFO_VALUE1, Nightwish
     }
   }
   $wanted = $shname_vars{$wanted}; # get ID_...
+  chomp($information{$wanted});
   return $information{$wanted};    # return 'Nightwish' ...
 }
 
@@ -72,19 +73,19 @@ Mplayer::NowPlaying - Query metadata information from a running Mplayer process
 
 =head1 DESCRIPTION
 
-Mplayer does not provide an API, the next best thing is to use the -slave option
-together with the ability to control it using a named pipe. 
+B<Mplayer> does not provide an API, the next best thing is to use the I<-slave> option
+together with the ability to control it using a named pipe.
 
-Mplayer::NowPlaying exports one function, np(), that takes a single argument,
+B<Mplayer::NowPlaying> exports one function, np(), that takes a single argument,
 the metadata tag to return:
 
   my $bitrate = np('bitrate'); # 128000
 
-You have to set the logfile to use. $np_log is globally exported, so you can do:
+You have to set the logfile to use. B<$np_log> is globally exported, so you can do:
 
   $np_log = "$ENV{HOME}/.mplayer/mplayer.log";
 
-Valid arguments for the np() function is:
+Valid arguments for the np() function are as follows:
 
   title
   artist
@@ -105,6 +106,14 @@ Valid arguments for the np() function is:
   start
   file
 
+=head1 ENVIRONMENT
+
+You might want to consider aliasing mplayer, since it needs the -identify
+switch.
+
+  alias mplayer="mplayer -identify $@> $HOME/.mplayer/mylog.log"
+
+
 =head1 AUTHOR
 
 Written by Magnus Woldrich.
@@ -123,7 +132,8 @@ There is NO WARRANTY, to the extent permitted by law.
 
 =head1 SEE ALSO
 
-Radio Playing Daemon <http://github.com/trapd00r/RPD/>
+B<Radio Playing Daemon> <http://github.com/trapd00r/RPD/>
+
 =cut
 
 1;
