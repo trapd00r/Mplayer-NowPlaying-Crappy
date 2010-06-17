@@ -43,7 +43,8 @@ sub np {
   my %shname_vars = reverse(%mapped_vars);
 
   foreach my $var(@content) {
-    if($var =~ m/(\w+)=([\w-.,;:\/\(\)\{\}\s]+)/) {
+    #if($var =~ m/(\w+)=([\w-\.,;:\/\(\)\{\}\s]+)/) {
+    if($var =~ m/(\w+)=(.+)/) { # this... should work
       $information{$1} = $2; # ID_CLIP_INFO_VALUE1, Nightwish
     }
   }
