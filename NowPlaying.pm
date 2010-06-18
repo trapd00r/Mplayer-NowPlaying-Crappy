@@ -1,17 +1,39 @@
 package Mplayer::NowPlaying;
 require Exporter;
 @ISA = qw(Exporter);
-@EXPORT_OK = qw(np $np_log);
+@EXPORT_OK = qw(np stream_np $np_log);
 
 use strict;
 use Carp;
+use Data::Dumper;
 
 our $np_log;
 $np_log = undef;
 
+sub stream_np {
+  croak("\$np_log is undefined!") unless(defined($np_log));
+  open(my $fh, '<', $np_log) or croak("Can not open $np_log for reading: $!");
+  my @content = <$fh>;
+  close($fh);
+
+  my %stream_vars = ();
+
+  for my $line(@content) {
+    if($line =~ /ICY Info: StreamTitle='(.+)';St.+/) {
+      #$current_title = $1;
+      $stream_vars{title} = $1;
+    }
+    if($line =~ m/^(Name|Genre|Website|Public|Bitrate)\s*:\s(.+)$/g) {
+      $stream_vars{lc($1)} = $2; # Name, Radio Schizoid...
+    }
+  }
+  return \%stream_vars;
+}
+
+
 sub np {
   my $wanted = shift;
-  croak('$np_log is undefined!') unless defined($np_log);
+  croak("\$np_log is undefined!") unless(defined($np_log));
 
   open(my $fh, '<', $np_log) or croak("Can not open $np_log for reading");
   my @content = <$fh>;
