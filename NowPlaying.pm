@@ -23,9 +23,9 @@ sub stream_np {
       #$current_title = $1;
       $stream_vars{title} = $1;
     }
-    else {
-      $stream_vars{title} = '';
-    }
+    #else {
+    #  $stream_vars{title} = '';
+    #}
     if($line =~ m/^(Name|Genre|Website|Public|Bitrate)\s*:\s(.+)$/g) {
       $stream_vars{lc($1)} = $2; # Name, Radio Schizoid...
     }
