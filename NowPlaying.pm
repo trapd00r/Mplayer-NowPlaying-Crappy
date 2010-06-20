@@ -23,6 +23,9 @@ sub stream_np {
       #$current_title = $1;
       $stream_vars{title} = $1;
     }
+    else {
+      $stream_vars{title} = '';
+    }
     if($line =~ m/^(Name|Genre|Website|Public|Bitrate)\s*:\s(.+)$/g) {
       $stream_vars{lc($1)} = $2; # Name, Radio Schizoid...
     }
@@ -67,6 +70,12 @@ sub np {
   foreach my $var(@content) {
     #if($var =~ m/(\w+)=([\w-\.,;:\/\(\)\{\}\s]+)/) {
     if($var =~ m/(\w+)=(.+)/) { # this... should work
+      unless(defined($1)) {
+        $1 = '';
+      }
+      unless(defined($2)) {
+        $2 = '';
+      }
       $information{$1} = $2; # ID_CLIP_INFO_VALUE1, Nightwish
     }
   }
