@@ -50,8 +50,7 @@ sub np {
     ID_CLIP_INFO_VALUE2 => 'album',
     ID_CLIP_INFO_VALUE3 => 'year',
     ID_CLIP_INFO_VALUE4 => 'comment',
-    ID_CLIP_INFO_VALUE5 => 'track', # track #
-    ID_CLIP_INFO_VALUE6 => 'genre',
+    ID_CLIP_INFO_VALUE5 => 'genre',
     ID_AUDIO_BITRATE    => 'bitrate',
     ID_AUDIO_CODEC      => 'codec',
     ID_AUDIO_FORMAT     => 'format',
