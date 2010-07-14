@@ -84,8 +84,7 @@ Mplayer::NowPlaying - Query metadata information from a running Mplayer process
 
 =head1 SYNOPSIS
 
-  use strict;
-  use Mplayer::NowPlaying qw($np_log np);
+  use Mplayer::NowPlaying qw($np_log np stream_np);
 
   $np_log = './mplay.log';
 
@@ -95,15 +94,28 @@ Mplayer::NowPlaying - Query metadata information from a running Mplayer process
 
   printf("%s - %s (%s)\n", $artist, $title, $album);
 
+
+  my $stream_info = stream_np();
+  my $title       = $stream_info->{title};
+  my $website     = $stream_info->{website};
+
+  printf("%s from %s\n", $title, $website);
+
 =head1 DESCRIPTION
 
-B<Mplayer> does not provide an API, the next best thing is to use the I<-slave> option
-together with the ability to control it using a named pipe.
+B<Mplayer> does not provide a API, the next best thing is to use it's ability to
+read commands from files and/or named pipes.
 
-B<Mplayer::NowPlaying> exports one function, np(), that takes a single argument,
-the metadata tag to return:
+B<Mplayer::NowPlaying> makes retrieval of metadata from such a process a little
+bit easier.
 
-  my $bitrate = np('bitrate'); # 128000
+B<Mplayer::NowPlaying> exports two functions, np() for local data and
+stream_np() for streaming data.
+
+
+  my $bitrate     = np('bitrate');        # 128000
+  my $stream_info = stream_np();          # returns a hash reference
+  my $stream_name = $stream_info->{name}; 
 
 You have to set the logfile to use. B<$np_log> is globally exported, so you can do:
 
@@ -129,6 +141,14 @@ Valid arguments for the np() function are as follows:
   seekable
   start
   file
+
+Valid keys for the hash reference provided by stream_np() are:
+
+  name
+  genre
+  website
+  public
+  bitrate
 
 =head1 ENVIRONMENT
 
