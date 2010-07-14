@@ -94,7 +94,6 @@ Mplayer::NowPlaying - Query metadata information from a running Mplayer process
 
   printf("%s - %s (%s)\n", $artist, $title, $album);
 
-
   my $stream_info = stream_np();
   my $title       = $stream_info->{title};
   my $website     = $stream_info->{website};
@@ -109,9 +108,8 @@ read commands from files and/or named pipes.
 B<Mplayer::NowPlaying> makes retrieval of metadata from such a process a little
 bit easier.
 
-B<Mplayer::NowPlaying> exports two functions, np() for local data and
-stream_np() for streaming data.
-
+Two functions are exported - np() for local data and stream_np(), which returns
+a hash reference, for streaming data.
 
   my $bitrate     = np('bitrate');        # 128000
   my $stream_info = stream_np();          # returns a hash reference
@@ -156,7 +154,6 @@ You might want to consider aliasing mplayer, since it needs the -identify
 switch.
 
   alias mplayer="mplayer -identify $@> $HOME/.mplayer/mylog.log"
-
 
 =head1 AUTHOR
 
