@@ -1,4 +1,6 @@
 package Mplayer::NowPlaying;
+
+our $VERSION = '0.2.1';
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(np stream_np $np_log);
@@ -18,19 +20,13 @@ sub stream_np {
 
   my %stream_vars = ();
 
-  for my $line(@content) {
-    if($line =~ /ICY Info: StreamTitle='(.+)';St.+/) {
-      #$current_title = $1;
+  for my $line(reverse(@content)) {
+    if($line =~ s/^ICY Info: StreamTitle='(.+)';.+/$1/m) {
       $stream_vars{title} = $1;
-    }
-    #else {
-    #  $stream_vars{title} = '';
-    #}
-    if($line =~ m/^(Name|Genre|Website|Public|Bitrate)\s*:\s(.+)$/g) {
-      $stream_vars{lc($1)} = $2; # Name, Radio Schizoid...
+      last;
     }
   }
-  return \%stream_vars;
+  return(\%stream_vars);
 }
 
 
